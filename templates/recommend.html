@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="/static/style.css">
+    <title>Movie Recommendation</title>
+</head>
+<body>
+    <h1>Recommended Movie for {{ year }}</h1>
+    {% if selected_movies %}
+        <div class="movies-container">
+            {% for movie in selected_movies %}
+                <div class="movie-card">
+                    <img src="{{ movie.poster_path }}" alt="{{ movie.title }} Poster">
+                    <div class="movie-details">
+                        <h3>{{ movie.title }}</h3>
+                        <p>{{ movie.overview }}</p>
+                        <p>Popularity: {{ movie.popularity }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No movies found for the selected year, genre, and language.</p>
+    {% endif %}
+    <p><a href="/">Go back to select another year, genre, and language</a></p>
+
+    <form action="{{ url_for('recommend_movie') }}" method="get">
+        <label>Year Preference:</label>
+        <input type="radio" id="specific_year" name="year_preference" value="specific" checked>
+        <label for="specific_year">A specific year</label>
+        <input type="number" id="specific_year_input" name="specific_year" placeholder="Enter a year">
+
+        <label for="genre">Genre:</label>
+        <select id="genre" name="genre">
+            {% for genre in genres_list %}
+                <option value="{{ genre.id }}">{{ genre.name }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="radio" id="no_preference" name="year_preference" value="no_preference">
+        <label for="no_preference">I don't have a preference</label>
+
+        <input type="submit" value="Generate Recommendations">
+    </form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

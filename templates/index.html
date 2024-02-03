@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="/static/style.css">
+    <title>Movie Recommendations</title>
+</head>
+<body>
+    <h1>Generate Movie Recommendations</h1>
+
+    <form action="{{ url_for('recommend_movie') }}" method="get">
+        <label for="genre">Select Genre:</label>
+        <select id="genre" name="genre">
+            {% for genre in genres_list %}
+                <option value="{{ genre.id }}">{{ genre.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Year Preference:</label>
+        <input type="radio" id="specific_year" name="year_preference" value="specific" checked>
+        <label for="specific_year">A specific year</label>
+        <input type="text" id="specific_year_input" name="specific_year" placeholder="Enter a year">
+
+        <input type="radio" id="no_preference" name="year_preference" value="no_preference">
+        <label for="no_preference">I don't have a preference</label>
+
+        <label for="adult_can_watch">I can watch 18+ movies</label>
+        <input type="checkbox" id="adult_can_watch" name="adult_can_watch" value="true">
+
+        <label for="adult_cannot_watch">I can't watch 18+ movies</label>
+        <input type="checkbox" id="adult_cannot_watch" name="adult_cannot_watch" value="true">
+
+        <input type="submit" value="Generate Recommendations">
+    </form>
+
+</body>
+</html>
+
